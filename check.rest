@@ -9,3 +9,7 @@ Content-Type: application/json
   "name": "benek",
   "password":"benek"
 }
+
+###
+
+GET http://localhost:9000/messages
