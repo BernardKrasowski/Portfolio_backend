@@ -18,26 +18,55 @@ const admin = [
     password: "$2b$10$h9zfKLD3fsbHjhZXl/.UN.Zm7b9wNEe1/yYnuvBicarHPSG9xOQ2W"
   }
 ];
-const messages = [];
+const messages = [
+
+];
+
+
+
 ////////////////// GET MESSAGES ////////////////
 app.get('/messages', (req, res) => {
-  res.send(messages)
+  res.json(messages)
 })
 ////////////////// POST MESSAGES ///////////////
 app.post('/messages', (req, res) => {
   const txt = req.body.areaValue;
   try {
     messages.push({
+      id: messages.length,
       message: txt,
       date: new Date()
     })
-    console.log('dziala dobrzae')
-    res.status(200).json('dziala')
-
   } catch {
     console.log('something wrong')
   }
 })
+
+
+
+/////////////////// DELETE MESSAGE ////////////// 
+app.delete('/messages/delete', (req, res) => {
+
+  const idRemove = req.body.id;
+
+  try {
+    const messageIndex = messages.findIndex(item => item.id === idRemove);
+    if (messageIndex === -1) {
+      console.log('wrong index');
+      return
+    }
+    messages.splice(messageIndex, 1);
+
+    for (let i = 0; i < messages.length; i++) {
+      messages[i].id = i;
+    }
+
+  } catch {
+    console.log('Error with remove')
+  }
+})
+
+
 ////////////////// POST LOGIN //////////////////
 app.post('/login/admin', async (req, res) => {
 
@@ -59,5 +88,8 @@ app.post('/login/admin', async (req, res) => {
     res.status(500).json('Wrong')
   }
 })
+
+
+
 //listener server
 app.listen(port, () => console.log(`Listening on http://localhost:${port}`))

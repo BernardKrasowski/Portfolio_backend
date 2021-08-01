@@ -13,3 +13,21 @@ Content-Type: application/json
 ###
 
 GET http://localhost:9000/messages
+
+###
+
+POST http://localhost:9000/messages
+Content-Type: application/json
+
+{
+"areaValue":"zerowy",
+
+}
+
+####
+DELETE http://localhost:9000/messages/delete
+Content-Type: application/json
+
+{
+  "id":1
+}
