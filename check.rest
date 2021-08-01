@@ -20,8 +20,7 @@ POST http://localhost:9000/messages
 Content-Type: application/json
 
 {
-"areaValue":"zerowy",
-
+"areaValue":"trzeci"
 }
 
 ####

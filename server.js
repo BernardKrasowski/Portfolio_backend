@@ -7,10 +7,16 @@ import bcrypt from 'bcrypt'
 const app = express();
 const port = process.env.PORT || 9000;
 
+
 // midlewares
 app.use(express.json());
 app.use(cors());
-
+// app.use(express.urlencoded({ extended: true }))
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "GET, POST, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "*");
+//   next();
+// })
 //Routes  
 const admin = [
   {
@@ -47,8 +53,7 @@ app.post('/messages', (req, res) => {
 /////////////////// DELETE MESSAGE ////////////// 
 app.delete('/messages/delete', (req, res) => {
 
-  const idRemove = req.body.id;
-
+  const idRemove = parseInt(req.body.data)
   try {
     const messageIndex = messages.findIndex(item => item.id === idRemove);
     if (messageIndex === -1) {
@@ -75,7 +80,6 @@ app.post('/login/admin', async (req, res) => {
   if (user === null) {
     return res.status(400).send('Cannot find user')
   }
-  // console.log(await bcrypt.compare(req.body.password, user.password))
   try {
     if (await bcrypt.compare(req.body.password, user.password)) {
 
